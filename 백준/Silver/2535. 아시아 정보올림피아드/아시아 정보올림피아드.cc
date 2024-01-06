@@ -19,7 +19,6 @@ int main() {
 		scoreStudentNum.insert(pair<int, int>(score, studentNum));
 	}
 
-	int a, b, c;
 	int count = 0;
 	for (auto itr = scoreCountry.begin(); itr != scoreCountry.end(); itr++) {
 		if (count == 3) break;
