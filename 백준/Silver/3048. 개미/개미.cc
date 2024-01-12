@@ -16,8 +16,9 @@ int main() {
 	int firstGroupLength;
 	int secondGroupLength;
 	int T;
-	char firstGroup[10000];
-	char secondGroup[10000];
+	char firstGroup[100];
+	char secondGroup[100];
+	int check[100];
 
 	scanf("%d%d", &firstGroupLength, &secondGroupLength);
 	scanf("%s%s", firstGroup, secondGroup);
@@ -25,25 +26,26 @@ int main() {
 	mirrorString(firstGroup, firstGroupLength);
 
 	strcat(firstGroup, secondGroup);
-	int left = firstGroupLength - 1;
-	int right = firstGroupLength - 1;
-	int temp;
+	char temp;
+	for (int i = 0; i < firstGroupLength; i++) {
+		check[i] = 1;
+	}
 
-	bool leftEnd = false, rightEnd = false;
+	for (int i = firstGroupLength; i < strlen(firstGroup); i++) {
+		check[i] = -1;
+	}
+
 	for (int i = 0; i < T; i++) {
-		if (left == 0)leftEnd = true;
-		if (right == strlen(firstGroup) - 2) rightEnd = true;
-		for (int j = left; j <= right; j += 2) {
-			temp = firstGroup[j];
-			firstGroup[j] = firstGroup[j + 1];
-			firstGroup[j + 1] = temp;
+		for (int j = 0; j < strlen(firstGroup) - 1; j++) {
+			if (check[j] > check[j + 1]) {
+				temp = firstGroup[j];
+				firstGroup[j] = firstGroup[j + 1];
+				firstGroup[j + 1] = temp;
+				check[j] = -1;
+				check[j + 1] = 1;
+				j++;
+			}
 		}
-		if (leftEnd && rightEnd && left == right) break;
-
-		if (!leftEnd)left--;
-		else left++;
-		if (!rightEnd) right++;
-		else right--;
 	}
 
 	for (int i = 0; i < strlen(firstGroup); i++) {
