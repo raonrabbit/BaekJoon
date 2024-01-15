@@ -16,8 +16,6 @@ int main() {
 		if (score > 0) yukjunpae = true;
 		else if (score == 0) yukjunpae = false;
 		score -= gulibus[i];
-		if (score > 0) yukjunpae = true;
-		else if (score == 0) yukjunpae = false;
 	}
 
 	if (yukjunpae) printf("Yes");
