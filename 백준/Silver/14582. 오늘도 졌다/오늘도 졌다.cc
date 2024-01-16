@@ -13,8 +13,10 @@ int main() {
 	}
 	for (int i = 0; i < 9; i++) {
 		score += jeminis[i];
-		if (score > 0) yukjunpae = true;
-		else if (score == 0) yukjunpae = false;
+		if (score > 0) {
+			yukjunpae = true;
+			break;
+		}
 		score -= gulibus[i];
 	}
 
