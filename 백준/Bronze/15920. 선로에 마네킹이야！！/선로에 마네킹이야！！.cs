@@ -1,5 +1,3 @@
 Console.ReadLine();
-var l = Console.ReadLine().Split('W');
-if (l.Length < 3) Console.WriteLine(0);
-else if (l[1].Length != 0) Console.WriteLine(6);
-else Console.WriteLine(l[0].Length % 2 == 0 ? 5 : 1);
+var l=Console.ReadLine().Split('W');
+Console.WriteLine((l.Length<3)?0:(l[1].Length!=0)?6:l[0].Length%2==0?5:1);
