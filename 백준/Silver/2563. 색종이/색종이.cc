@@ -1,9 +1,9 @@
 #include<stdio.h>
 
 int main() {
-	int** paperRecord = new int*[101];
-	for (int i = 0; i < 1001; i++) {
-		paperRecord[i] = new int[101];
+	bool** paperRecord = new bool*[100];
+	for (int i = 0; i < 100; i++) {
+		paperRecord[i] = new bool[100];
 	}
 
 	int paperCount;
@@ -16,18 +16,14 @@ int main() {
 		scanf("%d %d", &LBX, &LBY);
 		for (int h = LBY; h < LBY + height; h++) {
 			for (int w = LBX; w < LBX + width; w++) {
-				paperRecord[h][w] = i + 1;
+				paperRecord[h][w] = true;
 			}
 		}
 	}
 
-	for (int k = 0; k < paperCount; k++) {
-		for (int i = 0; i < 101; i++) {
-			for (int j = 0; j < 101; j++) {
-				if (paperRecord[i][j] == k + 1) {
-					result++;
-				}
-			}
+	for (int i = 0; i < 100; i++) {
+		for (int j = 0; j < 100; j++) {
+			if (paperRecord[i][j]) result++;
 		}
 	}
     printf("%d\n", result);
