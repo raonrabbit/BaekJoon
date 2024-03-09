@@ -12,12 +12,7 @@ w.Add(d[0]);
 h.Add(d[1]);
 w.Sort();
 h.Sort();
-int result = 0;
-for(int i = 0; i < w.Count - 1; i++)
-{
-    for(int j = 0; j < h.Count - 1; j++)
-    {
-        result = Math.Max(result, (w[i + 1] - w[i]) * (h[j + 1] - h[j]));
-    }
-}
-Console.WriteLine(result);
+int maxX = 0, maxY = 0;
+for (int i = 0; i < w.Count - 1; i++) maxX = Math.Max(maxX, w[i + 1] - w[i]);
+for (int i = 0; i < h.Count - 1; i++) maxY = Math.Max(maxY, h[i + 1] - h[i]);
+Console.WriteLine(maxX * maxY);
