@@ -7,20 +7,20 @@ foreach(var c in s)
 }
 zC /= 2;
 oC /= 2;
-for (int i = 0; i < s.Count; i++)
-{
-    if (oC != 0 && s[i] == "1")
+for (int i = 0; i < s.Count; i++){
+    if (oC == 0) break;
+    if (s[i] == "1")
     {
-        s.RemoveAt(i);
+        s.RemoveAt(i--);
         oC--;
     }
 }
-for(int i = s.Count - 1; i >= 0; i--) { 
-    if (zC != 0 && s[i] == "0")
+for(int i = s.Count - 1; i >= 0; i--) {
+    if (zC == 0) break;
+    if (s[i] == "0")
     {
         s.RemoveAt(i);
         zC--;
     }
 }
-
 foreach (var c in s) Console.Write(c);
