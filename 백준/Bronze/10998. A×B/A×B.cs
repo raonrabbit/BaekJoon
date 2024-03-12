@@ -1,0 +1,1 @@
+Console.WriteLine(Array.ConvertAll(Console.ReadLine().Split(), Int32.Parse).Aggregate((num1, num2) => num1 * num2));
