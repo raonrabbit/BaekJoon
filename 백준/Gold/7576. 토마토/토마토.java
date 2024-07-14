@@ -14,10 +14,10 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         Queue<Integer> q = new LinkedList<>();
-        Set<Integer> set = new HashSet<>();
         StringTokenizer st = new StringTokenizer(bf.readLine());
         M = Integer.parseInt(st.nextToken());
         N = Integer.parseInt(st.nextToken());
+        boolean[][] visitedMap = new boolean[N][M];
         int[][] chest = new int[N][M];
         int tomatoCount = 0;
         int goodTomatoCount = 0;
@@ -32,12 +32,13 @@ public class Main {
                 chest[y][x] = a;
                 if(a == 1) {
                     q.add(y * M + x);
-                    set.add(y * M + x);
+                    visitedMap[y][x] = true;
                 }
                 if(a != -1) tomatoCount++;
             }
         }
-
+        int[] dirX = {1, -1, 0, 0};
+        int[] dirY = {0, 0, 1, -1};
         while(!q.isEmpty()){
             if(goodTomatoCount == tomatoCount) break;
             int qSize = q.size();
@@ -50,21 +51,14 @@ public class Main {
                 chest[y][x] = 1;
                 goodTomatoCount++;
 
-                if(!IsOutOfChest(x + 1, y) && !set.contains(y * M + (x + 1)) && chest[y][x + 1] == 0) {
-                    q.add(y * M + (x + 1));
-                    set.add(y * M + (x + 1));
-                }
-                if(!IsOutOfChest(x - 1, y) && !set.contains(y * M + (x - 1)) && chest[y][x - 1] == 0) {
-                    q.add(y * M + (x - 1));
-                    set.add(y * M + (x - 1));
-                }
-                if(!IsOutOfChest(x, y + 1) && !set.contains((y + 1) * M + x) && chest[y + 1][x] == 0) {
-                    q.add((y + 1) * M + x);
-                    set.add((y + 1) * M + x);
-                }
-                if(!IsOutOfChest(x, y - 1) && !set.contains((y - 1) * M + x) && chest[y - 1][x] == 0) {
-                    q.add((y - 1) * M + x);
-                    set.add((y - 1) * M + x);
+                int newX, newY;
+                for(int d = 0; d < 4; d++){
+                    newX = x + dirX[d];
+                    newY = y + dirY[d];
+                    if(!IsOutOfChest(newX, newY) && !visitedMap[newY][newX] && chest[newY][newX] == 0) {
+                        q.add((newY) * M + (newX));
+                        visitedMap[newY][newX] = true;
+                    }
                 }
             }
         }
