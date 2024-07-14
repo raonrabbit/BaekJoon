@@ -1,28 +1,20 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.*;
 
 public class Main {
-    static int M;
-    static int N;
-
-    public static boolean IsOutOfChest(int x, int y){
-        return x < 0 || x > M - 1 || y < 0 || y > N - 1;
-    }
 
     public static void main(String[] args) throws IOException {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+
         Queue<int[]> q = new LinkedList<>();
         StringTokenizer st = new StringTokenizer(bf.readLine());
 
-        M = Integer.parseInt(st.nextToken());
-        N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
+        int N = Integer.parseInt(st.nextToken());
 
         boolean[][] visitedMap = new boolean[N][M];
 
         int tomatoCount = 0;
-        int goodTomatoCount = 0;
         int date = 0;
 
         for(int y = 0; y < N; y++){
@@ -34,18 +26,20 @@ public class Main {
 
                 if(a == 1) {
                     q.add(new int[]{x, y});
-                    visitedMap[y][x] = true;
                 }
-                if(a == -1) visitedMap[y][x] = true;
-                if(a != -1) tomatoCount++;
+
+                if(a != 0) {
+                    visitedMap[y][x] = true;
+                    tomatoCount++;
+                }
             }
         }
 
         int[] dirX = {1, -1, 0, 0};
         int[] dirY = {0, 0, 1, -1};
-
+        int goalCount = N * M;
         while(!q.isEmpty()){
-            if(goodTomatoCount == tomatoCount) break;
+            if(tomatoCount == goalCount) break;
             int qSize = q.size();
             date++;
             for(int i = 0; i < qSize; i++){
@@ -53,21 +47,21 @@ public class Main {
                 int x = t[0];
                 int y = t[1];
 
-                goodTomatoCount++;
-
                 int newX, newY;
                 for(int d = 0; d < 4; d++){
                     newX = x + dirX[d];
                     newY = y + dirY[d];
 
-                    if(!IsOutOfChest(newX, newY) && !visitedMap[newY][newX]) {
+                    if(!(newX < 0 || newX > M - 1 || newY < 0 || newY > N - 1) && !visitedMap[newY][newX]) {
                         q.add(new int[]{newX, newY});
                         visitedMap[newY][newX] = true;
+                        tomatoCount++;
                     }
                 }
             }
         }
-        if(goodTomatoCount != tomatoCount)System.out.print(-1);
-        else System.out.printf("%d", date - 1);
+
+        if(tomatoCount != goalCount)System.out.print(-1);
+        else System.out.print(date);
     }
 }
