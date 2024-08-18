@@ -7,16 +7,11 @@ public class Main {
     public static int[][] map;
     public static int white;
     public static int blue;
-    public static void DFS(int startX, int startY, int endX, int endY){
+    public static void DFS(int startX, int startY, int length){
         int n = map[startY][startX];
-        if(endX - startX <= 1){
-            if(n == 1) blue++;
-            else white++;
-            return;
-        }
         boolean isAllSame = true;
-        for(int y = startY; y < endY; y++){
-            for(int x = startX; x < endX; x++){
+        for(int y = startY; y < startY + length; y++){
+            for(int x = startX; x < startX + length; x++){
                 if(map[y][x] != n){
                     isAllSame = false;
                     break;
@@ -30,13 +25,14 @@ public class Main {
             return;
         }
 
-        int ny = startY + (endY - startY) / 2;
-        int nx = startX + (endX - startX) / 2;
+        length /= 2;
+        int ny = startY + length;
+        int nx = startX + length;
 
-        DFS(startX, startY, nx, ny);
-        DFS(nx, startY, endX, ny);
-        DFS(startX, ny, nx, endY);
-        DFS(nx, ny, endX, endY);
+        DFS(startX, startY, length);
+        DFS(nx, startY, length);
+        DFS(startX, ny, length);
+        DFS(nx, ny, length);
     }
 
     public static void main(String[] args) throws IOException {
@@ -54,7 +50,7 @@ public class Main {
             }
         }
 
-        DFS(0, 0, N, N);
+        DFS(0, 0, N);
         System.out.println(white);
         System.out.println(blue);
     }
