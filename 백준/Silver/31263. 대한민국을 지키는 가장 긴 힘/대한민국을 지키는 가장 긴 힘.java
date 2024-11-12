@@ -15,10 +15,11 @@ public class Main {
         for(int i = 0; i < N; i++){
             int t = s.charAt(i) - '0';
             temp = temp * 10 + t;
-            if(temp > 614) {
+            if(temp > 641) {
                 result++;
                 if(t == 0){
                     result++;
+                    if(i + 1 < N && s.charAt(i + 1) == 0) i++;
                     i++;
                 }
                 temp = t;
