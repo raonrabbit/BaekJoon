@@ -1,49 +1,46 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
-public class Main{
-    private final Queue<Integer> queue = new LinkedList<Integer>();
-    private final int[] visitedCheck = new int[110000];
-    private int start, goal;
-    public void solution() throws Exception{
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(bufferedReader.readLine());
-        BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(System.out));
+public class Main {
 
-        start = Integer.parseInt(st.nextToken());
-        goal = Integer.parseInt(st.nextToken());
-        int temp;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
 
-        queue.add(start);
-        visitedCheck[start] = 1;
-        while(!queue.isEmpty()) {
-            temp = queue.poll();
-            if(addTemp(temp,temp - 1)) break;
-            if(addTemp(temp,temp + 1)) break;
-            if(addTemp(temp,temp * 2)) break;
-        };
+        int N = Integer.parseInt(st.nextToken());
+        int K = Integer.parseInt(st.nextToken());
 
-        bufferedWriter.write(String.valueOf(visitedCheck[goal] - 1));
-        bufferedWriter.flush();
-        bufferedReader.close();
-        bufferedWriter.close();
-    }
+        Queue<Integer> queue = new ArrayDeque<>();
+        boolean[] visited = new boolean[200000];
 
-    private boolean addTemp(int temp, int next){
-        if(next >= 0 && next < visitedCheck.length && visitedCheck[next] == 0)
-        {
-            queue.add(next);
-            visitedCheck[next] = visitedCheck[temp] + 1;
+        queue.add(N);
+        int count = 0;
+        while(!queue.isEmpty()){
+            int n = queue.size();
+            for(int i = 0; i < n; i++){
+                int cur = queue.poll();
+                if(cur == K){
+                    System.out.print(count);
+                    return;
+                }
+
+                if(cur + 1 < 200000 && !visited[cur + 1]){
+                    queue.add(cur + 1);
+                    visited[cur + 1] = true;
+                }
+
+                if(cur - 1 >= 0 && !visited[cur - 1]){
+                    queue.add(cur - 1);
+                    visited[cur - 1] = true;
+                }
+
+                if(cur * 2 < 200000 && !visited[cur * 2]){
+                    queue.add(cur * 2);
+                    visited[cur * 2] = true;
+                }
+            }
+            count++;
         }
-        return next == goal;
     }
 
-    public static void main(String[] args) throws Exception{
-        new Main().solution();
-    }
 }
