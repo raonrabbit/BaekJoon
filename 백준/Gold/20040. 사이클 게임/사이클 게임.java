@@ -6,7 +6,6 @@ public class Main {
     static int[] parent;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
         StringTokenizer st;
 
         st = new StringTokenizer(br.readLine());
@@ -45,7 +44,7 @@ public class Main {
     }
 
     public static int find(int x){
-        if(x == parent[x]) return x;
-        return parent[x] = find(parent[x]);
+        if(parent[x] != x) parent[x] = find(parent[x]);
+        return parent[x];
     }
 }
