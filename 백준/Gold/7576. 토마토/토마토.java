@@ -12,16 +12,26 @@ public class Main {
         int M = Integer.parseInt(st.nextToken());
         int N = Integer.parseInt(st.nextToken());
 
-        boolean[][] visitedMap = new boolean[N][M];
+        boolean[][] visitedMap = new boolean[N + 2][M + 2];
 
         int tomatoCount = 0;
         int date = 0;
 
-        for(int y = 0; y < N; y++){
+        for(int i = 0; i <= N + 1; i++){
+            visitedMap[i][0] = true;
+            visitedMap[i][M + 1] = true;
+        }
+
+        for(int i = 0; i <= M + 1; i++){
+            visitedMap[0][i] = true;
+            visitedMap[N + 1][i] = true;
+        }
+
+        for(int y = 1; y <= N; y++){
             String s = bf.readLine();
             st = new StringTokenizer(s);
 
-            for(int x = 0; x < M; x++){
+            for(int x = 1; x <= M; x++){
                 int a = Integer.parseInt(st.nextToken());
 
                 if(a == 1) {
@@ -43,7 +53,7 @@ public class Main {
             int qSize = q.size();
             date++;
             for(int i = 0; i < qSize; i++){
-                int[] t= q.remove();
+                int[] t = q.remove();
                 int x = t[0];
                 int y = t[1];
 
@@ -52,7 +62,7 @@ public class Main {
                     newX = x + dirX[d];
                     newY = y + dirY[d];
 
-                    if(!(newX < 0 || newX > M - 1 || newY < 0 || newY > N - 1) && !visitedMap[newY][newX]) {
+                    if(!visitedMap[newY][newX]) {
                         q.add(new int[]{newX, newY});
                         visitedMap[newY][newX] = true;
                         tomatoCount++;
