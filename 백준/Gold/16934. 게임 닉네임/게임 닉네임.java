@@ -8,14 +8,12 @@ public class Main {
     static String[] names;
 
     public static class Node{
-        public String data;
         public int count;
         public HashMap<Character, Node> child;
 
         public Node(){
             this.count = 0;
             child = new HashMap<>();
-            data = "";
         }
     }
 
@@ -51,12 +49,11 @@ public class Main {
             }
             cur.count++;
             if (!nameGood) {
-                if (!cur.data.isEmpty() && cur.count >= 2) {
+                if (cur.count >= 2) {
                     sb.append(cur.count);
                 }
                 sb.append('\n');
             }
-            cur.data = s;
         }
 
         System.out.print(sb);
