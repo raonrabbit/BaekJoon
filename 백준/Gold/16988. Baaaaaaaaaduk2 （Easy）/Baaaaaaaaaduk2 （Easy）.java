@@ -4,7 +4,7 @@ import java.util.*;
 public class Main {
     static int N, M;
     static int[][] baduk;
-    static int[][] groupMap;
+    static boolean[][] groupMap;
     static int[][] dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
     static int groupIdx = 2;
     static Map<Integer, Integer> groupSize = new HashMap<>();
@@ -38,7 +38,7 @@ public class Main {
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
         baduk = new int[N][M];
-        groupMap = new int[N][M];
+        groupMap = new boolean[N][M];
 
         for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
@@ -57,10 +57,10 @@ public class Main {
 
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < M; j++) {
-                if (baduk[i][j] == 2 && groupMap[i][j] == 0) {
+                if (baduk[i][j] == 2 && !groupMap[i][j]) {
                     Queue<Node> q = new ArrayDeque<>();
                     q.add(new Node(i, j));
-                    groupMap[i][j] = groupIdx;
+                    groupMap[i][j] = true;
 
                     int size = 1;
                     Set<Node> empty = new HashSet<>();
@@ -72,8 +72,8 @@ public class Main {
                             int nx = cur.x + dir[1];
                             if (ny < 0 || nx < 0 || ny >= N || nx >= M) continue;
 
-                            if (baduk[ny][nx] == 2 && groupMap[ny][nx] == 0) {
-                                groupMap[ny][nx] = groupIdx;
+                            if (baduk[ny][nx] == 2 && !groupMap[ny][nx]) {
+                                groupMap[ny][nx] = true;
                                 q.add(new Node(ny, nx));
                                 size++;
                             } else if (baduk[ny][nx] == 0) {
