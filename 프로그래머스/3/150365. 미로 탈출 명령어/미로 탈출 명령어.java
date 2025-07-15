@@ -50,7 +50,7 @@ class Solution {
         maxMoveCount = k;
         sb = new StringBuilder();
         
-        DFS(0, x - 1, y - 1);
+        DFS(0, startY, startX);
         
         return sb.toString();
     }
