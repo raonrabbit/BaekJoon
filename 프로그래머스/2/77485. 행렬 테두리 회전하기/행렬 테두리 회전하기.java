@@ -2,7 +2,6 @@ class Solution {
     static int[][] map;
     
     static int rotate(int startR, int startC, int endR, int endC){
-        // startR : 1 / startC : 1 / endR : 4 / endC : 3
         int temp = map[startR][startC];
         int temp2 = -1;
         int min = temp;
