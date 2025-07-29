@@ -36,12 +36,9 @@ class Solution {
         
         // 이미 지울 수 있는 친구들은 다 지웠으므로
         // 나머지 문자열들을 추가해줍니다.
-        for(int i = cur_idx; i < number.length(); i++){
+        // 만약 k 가 남아있다면 마지막 k 개의 문자열은 추가하지 않습니다.
+        for(int i = cur_idx; i < number.length() - k; i++){
             sb.append(number_arr[i]);
-        }
-        
-        for(int i = 0; i < k; i++){
-            sb.deleteCharAt(sb.length() - 1);
         }
         
         return sb.toString();
