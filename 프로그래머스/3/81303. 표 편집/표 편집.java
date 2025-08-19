@@ -16,8 +16,7 @@ class Solution {
     
     public String solution(int n, int k, String[] cmd) {
         StringBuilder sb = new StringBuilder();
-        User head = new User(0, null);
-        User currentUser = head;
+        User currentUser = new User(0, null);
         User prev = currentUser;
         for(int i = 1; i < n; i++){
             User user = new User(i, prev);
@@ -59,8 +58,7 @@ class Solution {
                     if(nextUser != null) {
                         currentUser = nextUser;
                         if(prevUser == null) {
-                            head = currentUser;
-                            head.prevUser = null;
+                            currentUser.prevUser = null;
                             break;
                         }
                         
@@ -79,7 +77,6 @@ class Solution {
                     if(redoUser.prevUser == null){
                         redoUser.prevUser = null;
                         redoUser.nextUser.prevUser = redoUser;
-                        head = redoUser;
                         break;
                     }
                     
