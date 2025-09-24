@@ -28,12 +28,12 @@ class Solution {
         if(isH){
             // 행 뒤집기
             for(int i = 0; i < board[0].length; i++){
-                board[n][i] = board[n][i] == 1 ? 0 : 1;
+                board[n][i] = (board[n][i] + 1) % 2;
             }
         } else {
             // 열 뒤집기
             for(int i = 0; i < board.length; i++){
-                board[i][n] = board[i][n] == 1 ? 0 : 1;
+                board[i][n] = (board[i][n] + 1) % 2;
             }
         }
     }
